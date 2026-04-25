@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "AI Assistant",
+    "slug": "ai-personal-assistant",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0A0E1A"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.aiassistant.app",
+      "buildNumber": "1",
+      "entitlements": {
+        "com.apple.developer.family-controls": true
+      },
+      "infoPlist": {
+        "NSUserNotificationUsageDescription": "We need notification permission to remind you of tasks and events.",
+        "NSFamilyControlsUsageDescription": "We use Screen Time to help you manage app usage and stay focused."
+      }
+    },
+    "plugins": [
+      "expo-notifications",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "deploymentTarget": "16.0"
+          }
+        }
+      ]
+    ]
+  }
+}
