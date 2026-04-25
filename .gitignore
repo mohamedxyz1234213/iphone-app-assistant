@@ -1,0 +1,74 @@
+# ─── Node ────────────────────────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ─── Expo ────────────────────────────────────────────────────────────────────
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# ─── React Native / Metro ────────────────────────────────────────────────────
+.metro-health-check*
+.react-native-cache/
+
+# ─── iOS / Xcode ─────────────────────────────────────────────────────────────
+# Generated build artefacts (safe to regenerate with `pod install`)
+ios/Pods/
+ios/build/
+ios/*.xcworkspace
+ios/Podfile.lock
+
+# Xcode user data (machine-specific)
+ios/**/*.xcodeproj/xcuserdata/
+ios/**/*.xcworkspace/xcuserdata/
+ios/**/.xcode.env.local
+
+# DerivedData
+DerivedData/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+
+# Archives
+*.xcarchive
+
+# CocoaPods cache (optional, usually gitignored)
+# Uncomment if you don't want to track resolved pods:
+# ios/Podfile.lock
+
+# ─── Android ─────────────────────────────────────────────────────────────────
+android/
+
+# ─── TypeScript ──────────────────────────────────────────────────────────────
+*.js.map
+*.d.ts
+
+# ─── macOS ───────────────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# ─── Editor / IDEs ───────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ─── Environment / Secrets ───────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
