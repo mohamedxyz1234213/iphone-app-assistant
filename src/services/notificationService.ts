@@ -45,14 +45,15 @@ export const NotificationService = {
         dueDate.setHours(9, 0, 0, 0);
       }
 
-      // Remind 30 minutes before
-      const triggerDate = new Date(dueDate.getTime() - 30 * 60 * 1000);
+      // Remind TASK_REMINDER_LEAD_MINUTES before the due time
+      const TASK_REMINDER_LEAD_MINUTES = 30;
+      const triggerDate = new Date(dueDate.getTime() - TASK_REMINDER_LEAD_MINUTES * 60 * 1000);
       if (triggerDate <= new Date()) return null;
 
       const id = await Notifications.scheduleNotificationAsync({
         content: {
           title: `⏰ Task Due Soon: ${task.title}`,
-          body: task.description || 'Your task is due in 30 minutes.',
+          body: task.description || `Your task is due in ${TASK_REMINDER_LEAD_MINUTES} minutes.`,
           data: { taskId: task.id, type: 'task' },
           sound: true,
         },

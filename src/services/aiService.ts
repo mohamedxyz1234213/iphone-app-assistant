@@ -63,7 +63,8 @@ ${JSON.stringify(taskList, null, 2)}`;
           { role: 'user', content: userPrompt },
         ],
         temperature: 0.3,
-        max_tokens: 1000,
+        // Allocate ~80 tokens per task for id + priority + reason, minimum 512
+        max_tokens: Math.max(512, tasks.length * 80),
       }),
     });
 

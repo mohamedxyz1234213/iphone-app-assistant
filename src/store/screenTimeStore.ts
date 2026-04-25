@@ -1,9 +1,12 @@
 import { create } from 'zustand';
+import { AppState, AppStateStatus, Platform } from 'react-native';
 import { useSettingsStore } from './settingsStore';
 import { ScreenTimeService } from '../services/screenTimeService';
 
 interface ScreenTimeStore {
   intervalId: ReturnType<typeof setInterval> | null;
+  appStateSubscription: { remove: () => void } | null;
+  isForegrounded: boolean;
 
   startTracking: () => void;
   stopTracking: () => void;
@@ -19,22 +22,40 @@ interface ScreenTimeStore {
 
 export const useScreenTimeStore = create<ScreenTimeStore>((set, get) => ({
   intervalId: null,
+  appStateSubscription: null,
+  isForegrounded: true,
 
   startTracking() {
     if (get().intervalId) return;
     get().resetIfNewDay();
+
+    // Only tick when the app is in the foreground to avoid unnecessary battery drain.
+    // The interval fires every 60 seconds but skips the update when backgrounded.
+    const subscription = AppState.addEventListener(
+      'change',
+      (nextState: AppStateStatus) => {
+        set({ isForegrounded: nextState === 'active' });
+      }
+    );
+
     const id = setInterval(() => {
-      get().tick();
-    }, 60_000); // tick every minute
-    set({ intervalId: id });
+      if (get().isForegrounded) {
+        get().tick();
+      }
+    }, 60_000); // tick every minute, foreground only
+
+    set({ intervalId: id, appStateSubscription: subscription });
   },
 
   stopTracking() {
-    const { intervalId } = get();
+    const { intervalId, appStateSubscription } = get();
     if (intervalId) {
       clearInterval(intervalId);
-      set({ intervalId: null });
     }
+    if (appStateSubscription) {
+      appStateSubscription.remove();
+    }
+    set({ intervalId: null, appStateSubscription: null });
   },
 
   async tick() {

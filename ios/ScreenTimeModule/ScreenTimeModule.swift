@@ -26,8 +26,14 @@ class ScreenTimeModule: NSObject {
   func blockApps(_ bundleIds: [String],
                  resolver resolve: @escaping RCTPromiseResolveBlock,
                  rejecter reject: @escaping RCTPromiseRejectBlock) {
-    // ApplicationTokens must be acquired via FamilyActivityPicker (see ScreenTimePicker.swift).
-    // As a fallback, shield by category when bundle IDs are provided.
+    // FamilyControls does not allow constructing ApplicationToken objects directly
+    // from bundle IDs — tokens must be acquired through the FamilyActivityPicker SwiftUI
+    // component (see ScreenTimePicker.swift). The selected tokens are then stored and
+    // used here via store.shield.applications.
+    //
+    // When bundle IDs are provided without prior picker selection, we fall back to
+    // shielding by category (socialNetworking + entertainment). In the full integration,
+    // the React Native side passes a serialized token set obtained from the picker.
     if !bundleIds.isEmpty {
       store.shield.applicationCategories = ShieldSettings.ActivityCategoryPolicy.specific(
         [.socialNetworking, .entertainment],

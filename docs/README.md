@@ -303,7 +303,7 @@ The bridging header (`AIAssistant-Bridging-Header.h`) imports the necessary Reac
 
 ### Q: Why Expo bare workflow instead of managed workflow?
 
-The app requires `FamilyControls` and `ManagedSettings` — Apple private frameworks that require custom native code. Expo managed workflow cannot accommodate custom native modules. The bare workflow gives us full Xcode project control while retaining Expo tooling (EAS Build, expo-notifications, expo-blur, etc.).
+The app requires `FamilyControls` and `ManagedSettings` — Apple entitlement-gated frameworks that require custom native code and a special `com.apple.developer.family-controls` capability granted by Apple. Expo managed workflow cannot accommodate custom native modules. The bare workflow gives us full Xcode project control while retaining Expo tooling (EAS Build, expo-notifications, expo-blur, etc.).
 
 ### Q: Why Zustand over Redux or Context API?
 
