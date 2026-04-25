@@ -54,7 +54,7 @@ export default function ScreenTimeScreen() {
       return;
     }
     const interval = setInterval(() => {
-      const remaining = new Date(st.blockUntilTime!).getTime() - Date.now();
+      const remaining = new Date(st.blockUntilTime ?? '').getTime() - Date.now();
       if (remaining <= 0) {
         setCountdown('Ending...');
         clearInterval(interval);

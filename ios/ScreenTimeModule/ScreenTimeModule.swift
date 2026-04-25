@@ -26,21 +26,16 @@ class ScreenTimeModule: NSObject {
   func blockApps(_ bundleIds: [String],
                  resolver resolve: @escaping RCTPromiseResolveBlock,
                  rejecter reject: @escaping RCTPromiseRejectBlock) {
-    // In production, ApplicationTokens are obtained via FamilyActivityPicker UI,
-    // not directly from bundle IDs. This demonstrates the ManagedSettings pattern.
-    // As a fallback, shield by category.
-    let applications = Set<ApplicationToken>()
-
-    store.shield.applications = applications.isEmpty ? nil : applications
-
+    // ApplicationTokens must be acquired via FamilyActivityPicker (see ScreenTimePicker.swift).
+    // As a fallback, shield by category when bundle IDs are provided.
     if !bundleIds.isEmpty {
-      // Shield social media and entertainment categories
       store.shield.applicationCategories = ShieldSettings.ActivityCategoryPolicy.specific(
         [.socialNetworking, .entertainment],
         except: Set()
       )
+    } else {
+      store.shield.applications = nil
     }
-
     resolve(true)
   }
 

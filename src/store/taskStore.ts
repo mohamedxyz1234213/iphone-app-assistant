@@ -3,10 +3,7 @@ import { Task, Priority, TaskStatus } from '../types';
 import { StorageService } from '../services/storageService';
 import { AIService } from '../services/aiService';
 import { NotificationService } from '../services/notificationService';
-
-function generateId(): string {
-  return Math.random().toString(36).slice(2) + Date.now().toString(36);
-}
+import { generateId } from '../utils/generateId';
 
 interface TaskStore {
   tasks: Task[];

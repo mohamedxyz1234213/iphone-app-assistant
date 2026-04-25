@@ -81,8 +81,12 @@ ${JSON.stringify(taskList, null, 2)}`;
     const content = data.choices[0]?.message?.content ?? '[]';
 
     const cleaned = content.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
-    const results = JSON.parse(cleaned) as AIPrioritizationResult[];
-    return results;
+    try {
+      const results = JSON.parse(cleaned) as AIPrioritizationResult[];
+      return results;
+    } catch {
+      throw new Error('AI response was not in expected format. Please try again.');
+    }
   },
 
   async suggestTaskPriority(
@@ -134,7 +138,11 @@ Due Date: ${dueDate || 'Not set'}`;
     };
     const content = data.choices[0]?.message?.content ?? '{}';
     const cleaned = content.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
-    return JSON.parse(cleaned) as AITaskSuggestion;
+    try {
+      return JSON.parse(cleaned) as AITaskSuggestion;
+    } catch {
+      throw new Error('AI response was not in expected format. Please try again.');
+    }
   },
 
   sortByPriority(tasks: Task[]): Task[] {

@@ -2,10 +2,7 @@ import { create } from 'zustand';
 import { Event } from '../types';
 import { StorageService } from '../services/storageService';
 import { NotificationService } from '../services/notificationService';
-
-function generateId(): string {
-  return Math.random().toString(36).slice(2) + Date.now().toString(36);
-}
+import { generateId } from '../utils/generateId';
 
 interface EventStore {
   events: Event[];
