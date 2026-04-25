@@ -2,8 +2,8 @@
 //  AIAssistant-Bridging-Header.h
 //  AIAssistant
 //
-//  This bridging header exposes Objective-C React Native headers to Swift files.
-//  Required so Swift modules can use RCTBridgeModule, RCTLog, etc.
+//  Exposes Objective-C React Native headers to Swift files so that
+//  ScreenTimeModule.swift can reference RCTPromiseResolveBlock etc.
 //
 
 #import <React/RCTBridgeModule.h>
